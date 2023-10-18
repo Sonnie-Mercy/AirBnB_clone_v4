@@ -3,19 +3,25 @@ header {
     height: 70px;
     width: 100%;
     border-bottom: 1px solid #CCCCCC;
+
 }
 header .logo {
+    display: inline-block;
     background: url("../images/logo.png") no-repeat;
     left: 20px;
+    width: 90%;
     height: 100%;
 }
-#api_status.available {
-    background-color: #ff545f;
+
+#api_status {
+    display: inline-block;
+    background-color:  #cccccc;
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    position: absolute;
-    right: 30px;
-    top: 50%;
-    transform: translateY(-50%);
+    margin-bottom: auto;
+}
+
+#api_status.available {
+    background-color: #ff545f;
 }
