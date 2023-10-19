@@ -7,14 +7,7 @@ $(function() {
     $('.amenities h4').text(amenityNames.join(", "));
   });
 });
-/*
-$('button').click(function () {
-    const amenitiesChecked = [];
-    $('input[type="checkbox"]:checked').each((index, element) => {
-      amenitiesChecked.push($(element).attr('data-id'));
-    });
-    $.post('http://127.0.0.1:5001/api/v1/places_search/'
-*/
+
 $(function() {
   function updateApiStatus() {
     $('DIV#api_status').removeClass('available');
@@ -26,23 +19,38 @@ $(function() {
   }
 
   updateApiStatus();
-
   setInterval(updateApiStatus, 10000);
 });
 
 $(function() {
+  place_search({});
+});
+
+$(function() {
+  $('button#place_search').click(function () {
+    const amenitiesChecked = [];
+    $('input[type="checkbox"]:checked').each((index, element) => {
+      amenitiesChecked.push($(element).attr('data-id'));
+      const params = {amenities: amenitiesChecked};
+    });
+    place_search(params);
+  });
+});
+
+
+function place_search(obj) {
   $.ajax({
     method: 'POST',
     url: 'http://localhost:5001/api/v1/places_search/',
     dataType: 'json',
-    data: JSON.stringify({}),
+    data: JSON.stringify(obj),
     headers: {
-	'Content-Type': 'application/json'
+        'Content-Type': 'application/json'
     },
     success: (data) => {
       $.each(data, (index, place) => {
-	const html_article = `
-	  <article>
+        const html_article = `
+          <article>
           <div class="title_box">
             <h2>${ place.name }</h2>
             <div class="price_by_night">$${ place.price_by_night }</div>
@@ -60,4 +68,4 @@ $(function() {
       });
     }
   });
-});
+};
